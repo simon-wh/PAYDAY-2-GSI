@@ -1,0 +1,6 @@
+<mod name="Game State Intergration" global_key="GSI">
+    <modules>
+        <LocalizationModule directory="Localization" default="english.txt">
+        </LocalizationModule>
+    </modules>
+</mod>
