@@ -7,9 +7,9 @@ function HUDManager:set_teammate_health(i, data)
 	local panel = self._teammate_panels[i]
     local peer_id = panel._main_player and managers.network:session():local_peer():id() or panel._peer_id
     if not panel._ai and peer_id and data then
-        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/health", "current", data.current)
+        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/health", "current", BeardLib.Utils.Math:Round(data.current, 4))
         GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/health", "revives", data.revives)
-        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/health", "total", data.total)
+        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/health", "total", BeardLib.Utils.Math:Round(data.total, 4))
     end
 end
 
@@ -20,9 +20,9 @@ function HUDManager:set_teammate_armor(i, data)
 	local panel = self._teammate_panels[i]
     local peer_id = panel._main_player and managers.network:session():local_peer():id() or panel._peer_id
     if not panel._ai and peer_id and data then
-        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/armor", "current", data.current)
+        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/armor", "current", BeardLib.Utils.Math:Round(data.current, 4))
         GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/armor", "max", data.max)
-        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/armor", "total", data.total)
+        GSI.managers.Communicator:SetVariable("players/" .. peer_id .. "/armor", "total", BeardLib.Utils.Math:Round(data.total, 4))
     end
 end
 
@@ -147,8 +147,8 @@ function HUDManager:set_suspicion(status)
         local peer_id = managers.network:session():local_peer():id()
         if peer_id and status ~= nil then
             local amount = type(status) == "boolean" and (status and 1 or 0) or status
-            
-            GSI.managers.Communicator:SetVariable("players/" .. peer_id, "suspicion", amount)
+
+            GSI.managers.Communicator:SetVariable("players/" .. peer_id, "suspicion", BeardLib.Utils.Math:Round(amount, 4))
         end
     end
 end

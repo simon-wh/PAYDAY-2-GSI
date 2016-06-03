@@ -24,7 +24,8 @@ if not GSI then
         ["lib/managers/criminalsmanager"] = "CriminalsManager.lua",
         ["lib/managers/groupaimanager"] = "GroupAIManager.lua",
         ["lib/managers/group_ai_states/groupaistatebase"] = "GroupAiStateBase.lua",
-        ["lib/managers/group_ai_states/groupaistatebesiege"] = "GroupAiStateBesiege.lua"
+        ["lib/managers/group_ai_states/groupaistatebesiege"] = "GroupAiStateBesiege.lua",
+        ["lib/managers/menumanager"] = "MenuManager.lua"
     }
 
     self.managers = {}
