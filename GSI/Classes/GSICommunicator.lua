@@ -2,6 +2,7 @@ GSICommunicator = GSICommunicator or class()
 
 GSICommunicator.MessageInterval = 30
 GSICommunicator.QueuedMessageInterval = 0.1
+GSICommunicator.Timeout = 60
 
 GSICommunicator.ProviderDetails = {
     name = "PAYDAY 2",
@@ -20,7 +21,7 @@ GSICommunicator.StoredDetails = {
 }
 
 function GSICommunicator:init()
-
+    Http:set_timeout(20)
 end
 
 GSICommunicator._queued_message = false
@@ -61,8 +62,18 @@ function GSICommunicator:SendMessage()
     local encoded = json.custom_encode(message_data)
     --log(tostring(encoded))
     for _, inter in pairs(GSI.Intergrations) do
-        --dohttpreq(inter.uri .. "/" .. BeardLib.Utils.UrlEncode(encoded))
-        Http:get(function() end, inter.uri, "/", {}, tostring(encoded))
+        if not inter.unreach_t or self._tick - inter.unreach_t >= self.Timeout then
+            --dohttpreq(inter.uri .. "/" .. BeardLib.Utils.UrlEncode(encoded))
+            Http:get(function(success, data)
+                if not success then
+                    inter.unreachable = true
+                    inter.unreach_t = self._tick
+                else
+                    inter.unreachable = false
+                end
+            end,
+            inter.uri, "/", {}, tostring(encoded))
+        end
     end
 
     self.StoredDetails.previous = {}

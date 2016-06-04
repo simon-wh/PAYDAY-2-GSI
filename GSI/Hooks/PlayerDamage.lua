@@ -7,7 +7,7 @@ function PlayerDamage:update_downed(t, dt)
 	if self._downed_timer then
 	    local id = managers.network:session():local_peer():id()
 	    local timer = math.round(self._downed_timer)
-	    GSI.managers.Communicator:SetVariable("players/" .. id, "down_time", timer)
+	    GSI.managers.Communicator:SetVariable("players/" .. id, "down_time", BeardLib.Utils.Math:Round(timer, 2))
 	end
 	return ret
 end

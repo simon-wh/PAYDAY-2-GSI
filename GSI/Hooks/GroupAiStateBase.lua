@@ -24,7 +24,7 @@ function GroupAIStateBase:_update_point_of_no_return(t, dt)
     self._orig._update_point_of_no_return(self, t, dt)
     GSI.temp_storage._point_of_no_return = self._point_of_no_return_timer > 0 and not self._is_inside_point_of_no_return
     if GSI.temp_storage._point_of_no_return then
-        GSI.managers.Communicator:SetVariable("level", "no_return_timer", self._point_of_no_return_timer)
+        GSI.managers.Communicator:SetVariable("level", "no_return_timer", BeardLib.Utils.Math:Round(self._point_of_no_return_timer, 2))
     else
         GSI.managers.Communicator:SetVariable("level", "no_return_timer", nil)
     end
